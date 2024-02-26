@@ -1,9 +1,9 @@
-name: Backend Deploy
+name: api-deployment
 
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push or pull request, but only for the main branch
+      - main
 
 jobs:
   deploy:
