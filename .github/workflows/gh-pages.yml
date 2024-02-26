@@ -1,4 +1,4 @@
-name: Ui Deploy
+name: gh-pages
 
 on:
   push:
