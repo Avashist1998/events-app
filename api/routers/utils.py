@@ -1,6 +1,6 @@
 from fastapi import Request, HTTPException, Depends
 
-from api.services.db_service.sessions_service import get_session
+from services.db_service.sessions_service import get_session
 
 def get_session_id(request: Request):
     """Get session id"""

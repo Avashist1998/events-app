@@ -3,14 +3,14 @@ from fastapi import Request, Depends, HTTPException, Response, APIRouter
 from routers.utils import get_session_id
 from db.models import UserSignUp, User, NewUser, UserLogin, UserInfo
 from services.db_service.utils import DataServiceException
-from api.services.db_service.users_service import (
+from services.db_service.users_service import (
     get_user,
     add_user,
     get_user_info,
     delete_user,
     link_anonymous_user,
 )
-from api.services.db_service.sessions_service import (
+from services.db_service.sessions_service import (
     get_session,
     create_session,
     remove_session,
