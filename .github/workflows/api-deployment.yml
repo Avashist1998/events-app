@@ -1,0 +1,47 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push or pull request, but only for the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: 
+      name: api-prod
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Create SSH Key File
+      run: |
+        echo "$SSH_PRIVATE_KEY" > deploy_key.pem && chmod 600 deploy_key.pem
+        cat deploy_key.pem
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.DROPLET_SERVER_SSH_KEY }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v2.2.2
+      with:
+        python-version: 3.8
+
+    - name: Print Key File
+      run: cat deploy_key.pem
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.DROPLET_SERVER_HOST }}
+        username: ${{ secrets.DROPLET_SERVER_USERNAME }}
+        key: ${{ secrets.DROPLET_SERVER_SSH_KEY }}
+        debug: true
+        script: |
+          cd ~/events-app
+          git checkout app_v3
+          git pull
+          cd ./src/app_v3/api
+          docker build . -t events-app:latest
+          docker stop events-app
+          docker rm events-app
+          docker run -d -v ~/events-app.db:/code/database.db -v ~/cert/cert.pem:/code/cert.pem -v ~/cert/key.pem:/code/key.pem -p 3000:8000 --name events-app events-app:latest

@@ -1,0 +1,52 @@
+name: Ui Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        working-directory: ./ui
+        run: npm install
+
+      - name: Build project
+        working-directory: ./ui
+        run: npm run build
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-files
+          path: ./ui/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download production-ready build files
+        uses: actions/download-artifact@v3
+        with:
+          name: production-files
+          path: ./dist
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

@@ -24,10 +24,9 @@ def get_origins(config: Config) -> List[str]:
         ]
     else:
         origin = [
-            "*",
             "https://70.139.132.129",
             "https://avashist.com",
-            "https://ssapp.avashist.com",
+            "https://eventsApp.avashist.com",
             "https://avashist1998.github.io",
         ]
     return origin
