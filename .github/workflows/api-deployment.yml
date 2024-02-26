@@ -40,7 +40,7 @@ jobs:
           cd ~/events-app
           git checkout app_v3
           git pull
-          cd ./src/app_v3/api
+          cd ./api
           docker build . -t events-app:latest
           docker stop events-app
           docker rm events-app
