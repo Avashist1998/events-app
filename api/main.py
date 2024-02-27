@@ -26,7 +26,7 @@ def get_origins(config: Config) -> List[str]:
         origin = [
             "https://70.139.132.129",
             "https://avashist.com",
-            "https://eventsApp.avashist.com",
+            "https://events-app.avashist.com",
             "https://avashist1998.github.io",
         ]
     return origin
@@ -55,7 +55,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "Options"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -78,5 +78,7 @@ if __name__ == "__main__":
             "main:app",
             host="0.0.0.0",
             port=app_config.PORT,
-            log_level="info"
+            log_level="info",
+            ssl_keyfile="key.pem",
+            ssl_certfile="cert.pem",
         )
