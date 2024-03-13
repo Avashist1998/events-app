@@ -67,18 +67,16 @@ async def login(request: Request, user: UserLogin, response: Response) -> UserIn
             key="Authorization",
             domain=request.app.config.DOMAIN,
             value=session.token,
-            secure=True,
+            # secure=True,
             samesite="none",
-            httponly=True,
             max_age=3600,
         )
         response.set_cookie(
             key="userId",
             domain=request.app.config.DOMAIN,
             value=str(db_user.id),
-            secure=True,
+            # secure=True,
             samesite="none",
-            httponly=True,
             max_age=3600,
         )
         return get_user_info(request.app.db, email=user.email)

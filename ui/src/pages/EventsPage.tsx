@@ -64,18 +64,20 @@ const EventsPage = () => {
 
 
     useEffect(() => {
-        // console.log("Getting user info")
         getUserInfo().then((res) => {
             if ("id" in res) {
                 setUserData(res);
                 sessionStorage.setItem("userData", JSON.stringify(res));
+
             } else {
                 setUserData(null);
                 sessionStorage.removeItem("userData");
+                sessionStorage.removeItem("token");
             }
         }).catch(() => {
             setUserData(null);
             sessionStorage.removeItem("userData");
+            sessionStorage.removeItem("token");
         })
     }, [setUserData])
 

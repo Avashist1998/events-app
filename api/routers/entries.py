@@ -77,7 +77,7 @@ async def query_entry(request: Request, entry_id: str):
         400: {"model": Message},
     },
 )
-async def create_entry(request: Request, entry: EntryBase):
+async def create_entry(request: Request, entry: EntryBase, session: AuthSession = Depends(get_session_from_id),):
     """Create entry endpoint"""
     try:
         event = get_event(request.app.db, entry.event_id)

@@ -19,3 +19,7 @@ export const checkCookie = (name: string) => {
     return match ? true : false;
 }
 
+export const getCookie = (name: string) => {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : "";
+}

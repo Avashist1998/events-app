@@ -54,8 +54,8 @@ export const getUserInfo = async (): Promise<UserInfo | Message> => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": sessionStorage.getItem("token") || ""
             },
-            credentials: "include"
         })
         if (!response.ok) {
             const message = await response.json() as Message;
@@ -77,6 +77,7 @@ export const getUser = async (user_id: string): Promise<UserInfo | Message> => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": sessionStorage.getItem("token") || ""
             },
             credentials: "include"
         });
@@ -98,7 +99,8 @@ export const logOutUser = async (): Promise<Message> => {
         const response = await fetch(`${apiURL}/users/logout`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": sessionStorage.getItem("token") || ""
             },
             credentials: "include"
         });
