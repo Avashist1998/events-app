@@ -18,7 +18,6 @@ def get_origins(config: Config) -> List[str]:
     """Get the list of origins based on the mode of the application"""
     if config.MODE == "dev":
         origin = [
-            "*",
             "http://localhost:8080",
             "http://localhost:5173",
             "http://localhost:4173",
