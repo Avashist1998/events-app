@@ -15,7 +15,7 @@ import { UserInfo } from "./types/datatypes";
 function App() {
 
   const [userData, setUserData] = useState<UserInfo | null>(
-    JSON.parse(sessionStorage.getItem("userData") || "null")
+    JSON.parse(sessionStorage.getItem("userData") || "{}")
   );
 
   interface ProtectedRouteProps {

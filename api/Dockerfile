@@ -5,14 +5,14 @@ WORKDIR /code
 COPY . /code/
 
 # ENV SQLALCHEMY_DATABASE_URL "sqlite:////code/sql_app.db"
-ENV PORT 8000
+ENV PORT 3000
 ENV MODE "prod"
 ENV DEBUG "False"
-ENV DOMAIN ".avashist.com"
+ENV DOMAIN "events-app-api.avashist.com"
 
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH "/code:${PYTHONPATH}"
-EXPOSE 8000
+EXPOSE 3000
 
 CMD ["python3", "main.py"]

@@ -63,25 +63,27 @@ async def login(request: Request, user: UserLogin, response: Response) -> UserIn
         if old_session:
             remove_session(request.app.db, old_session.token)
         session = create_session(request.app.db, user.email)
+        user_info = get_user_info(request.app.db, email=user.email)
         response.set_cookie(
             key="Authorization",
             domain=request.app.config.DOMAIN,
             value=session.token,
             secure=True,
-            samesite="none",
             httponly=True,
+            samesite="none",
             max_age=3600,
         )
         response.set_cookie(
             key="userId",
             domain=request.app.config.DOMAIN,
             value=str(db_user.id),
-            secure=True,
-            samesite="none",
+            secure=False,
             httponly=True,
+            samesite="none",
             max_age=3600,
         )
-        return get_user_info(request.app.db, email=user.email)
+        print(user_info)
+        return user_info 
     except DataServiceException as err:
         raise HTTPException(status_code=500, detail="Failed to login") from err
 
@@ -104,7 +106,7 @@ async def logout(request: Request, response: Response, session_id: str = Depends
             key="userId",
             domain=request.app.config.DOMAIN,
             value="",
-            secure=True,
+            secure=False,
             samesite="none",
             httponly=True,
             max_age=0,
@@ -119,9 +121,13 @@ async def get_info(request: Request, session_id: str = Depends(get_session_id)):
     """Whoami endpoint"""
     try:
         session = get_session(request.app.db, session_id)
+        print(session, " is what")
         if session is None:
             raise HTTPException(status_code=401, detail="Invalid credentials")
         user = get_user_info(request.app.db, email=session.user_email)
+        print(user, session.user_email)
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
         return user
     except DataServiceException as err:
         raise HTTPException(status_code=500, detail="Failed to logout") from err

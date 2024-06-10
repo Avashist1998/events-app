@@ -1,0 +1,43 @@
+services:
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - DEBUG=True
+      - MODE=dev
+      - PORT=3000
+      - DOMAIN=localhost
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./api
+          target: /code
+        - action: rebuild
+          path: ./api/requirements.txt
+          target: /code/requirements.txt
+      volumes:
+        - ./api/database.db:/code/database.db
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    command: npm run dev
+    ports:
+      - "8080:5173"
+    expose:
+      - "5173"
+    develop:
+      watch:
+        - action: sync
+          path: ./ui/src
+          target: /app/src
+        - action: rebuild
+          path: ./ui/package.json
+          target: /code/package.json
+      # volumes:
+      #   - ./ui/node_modules:/code/node_modules

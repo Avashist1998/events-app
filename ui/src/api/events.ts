@@ -44,9 +44,9 @@ export async function deleteEvent (event_id: number): Promise<Message> {
     const res = await fetch(eventsApiURL  + event_id.toString(), {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": sessionStorage.getItem("token") || ""
         },
-        credentials: "include"
     })
     return res.json() as Promise<Message>
 }
@@ -58,10 +58,10 @@ export async function addEvent(event: SSEventBaseOptional): Promise<SSEvent | Me
         const res = await fetch(eventsApiURL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token") || ""
             },
             body: JSON.stringify(event),
-            credentials: "include"
         })
 
         if (!res.ok) {
@@ -97,9 +97,9 @@ export async function updateEvent(event_id: string, event: SSEventDataOptional):
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token") || ""
             },
-            body: JSON.stringify(event),
-            credentials: "include"
+            body: JSON.stringify(event)
         })
         if (!res.ok) {
             return res.json() as Promise<Message>
