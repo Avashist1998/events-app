@@ -7,6 +7,7 @@ import { addUser, logIn } from "../api/users";
 import { UserSignUp, UserLogin } from "../types/datatypes";
 import SignUpUserForm from "../forms/SignUpUserFrom";
 import LogInForm from "../forms/LogInForm";
+import { getCookie } from "../api/base";
 
 const MessageAlert = lazy(() => import("../components/MessageAlert"));
 
@@ -46,6 +47,10 @@ const SignUpPage = () => {
         logIn(user).then((res) => {
             if ("name" in res) {
                 setUserData(res);
+                const auth = getCookie("Authorization")
+                if (auth) {
+                    sessionStorage.setItem("token", auth);
+                }
                 sessionStorage.setItem("userData", JSON.stringify(res));
                 navigate("../");
             } else {

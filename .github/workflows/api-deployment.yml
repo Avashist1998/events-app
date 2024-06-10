@@ -46,4 +46,4 @@ jobs:
           docker build . -t events-app:latest
           docker stop events-app
           docker rm events-app
-          docker run -d -v ~/events-app.db:/code/database.db -v ~/cert/cloudflare-cert.pem:/code/cert.pem -v ~/cert/cloudflare-key.pem:/code/key.pem -p 433:8000 --name events-app events-app:latest
+          docker run -d -v ~/events-app.db:/code/database.db -v ~/cert/cloudflare-cert.pem:/code/cert.pem -v ~/cert/cloudflare-key.pem:/code/key.pem -p 3000:3000 --name events-app events-app:latest

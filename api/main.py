@@ -26,6 +26,9 @@ def get_origins(config: Config) -> List[str]:
         origin = [
             "https://70.139.132.129",
             "https://avashist.com",
+            "http://events-app-api.avashist.com"
+            "https://events-app-api.avashist.com"
+            "http://events-app.avashist.com",
             "https://events-app.avashist.com",
             "https://avashist1998.github.io",
         ]
@@ -70,7 +73,7 @@ if __name__ == "__main__":
             "main:app",
             host="0.0.0.0",
             port=app_config.PORT,
-            log_level="info",
+            log_level="debug",
             reload=True
         )
     else:

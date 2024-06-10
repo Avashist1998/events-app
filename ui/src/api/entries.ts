@@ -47,9 +47,9 @@ export async function deleteEntry (entry_id: number): Promise<Message> {
     const res = await fetch(entiresApiURL + entry_id.toString(), {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
+            "Content-Type": "application/json",
+            "Authorization": sessionStorage.getItem("token") || ""
+        }
     })
     return res.json() as Promise<Message>
 }

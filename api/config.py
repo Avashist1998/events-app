@@ -7,4 +7,4 @@ class Config:
     MODE = getenv("MODE", 'prod')
     DEBUG = "True" == getenv('DEBUG', "False")
     PORT = int(getenv("PORT", "8000"))
-    DOMAIN = getenv("DOMAIN", ".avashist.com")
+    DOMAIN = getenv("DOMAIN", "events-app-api.avashist.com")
