@@ -4,7 +4,7 @@ from services.db_service.sessions_service import get_session
 
 def get_session_id(request: Request):
     """Get session id"""
-    session_id = request.headers.get("Authorization")
+    session_id = request.cookies.get("Authorization")
     print("session_id", session_id)
     if not session_id:
         raise HTTPException(status_code=401, detail="Invalid credentials")

@@ -5,11 +5,12 @@ import { apiURL } from "./base";
 
 export const addUser = async (user: UserSignUp): Promise<UserInfo | Message> => {
     try {
-        const response = await fetch(`${apiURL}/users`, {
+        const response = await fetch(`${apiURL}/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: "include",
             body: JSON.stringify(user)
         });
         if (!response.ok) {
@@ -35,6 +36,7 @@ export const logIn = async (user: UserLogin): Promise<UserInfo | Message> => {
             body: JSON.stringify(user),
             credentials: "include"
         });
+        console.log(response);
         if (!response.ok) {
             const message = await response.json() as Message;
             message.status = response.status;
@@ -50,12 +52,12 @@ export const logIn = async (user: UserLogin): Promise<UserInfo | Message> => {
 
 export const getUserInfo = async (): Promise<UserInfo | Message> => {
     try {
-        const response = await fetch(`${apiURL}/users`, {
+        const response = await fetch(`${apiURL}/users/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": sessionStorage.getItem("token") || ""
             },
+            credentials: "include"
         })
         if (!response.ok) {
             const message = await response.json() as Message;
@@ -77,7 +79,6 @@ export const getUser = async (user_id: string): Promise<UserInfo | Message> => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": sessionStorage.getItem("token") || ""
             },
             credentials: "include"
         });

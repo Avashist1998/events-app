@@ -62,7 +62,6 @@ const EventsPage = () => {
     }, [offset, limit, eventType, searchTerm, reloadEvents])
 
 
-
     useEffect(() => {
         getUserInfo().then((res) => {
             if ("id" in res) {
@@ -72,12 +71,10 @@ const EventsPage = () => {
             } else {
                 setUserData(null);
                 sessionStorage.removeItem("userData");
-                sessionStorage.removeItem("token");
             }
         }).catch(() => {
             setUserData(null);
             sessionStorage.removeItem("userData");
-            sessionStorage.removeItem("token");
         })
     }, [setUserData])
 

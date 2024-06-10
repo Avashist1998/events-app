@@ -8,7 +8,7 @@ COPY . /code/
 ENV PORT 3000
 ENV MODE "prod"
 ENV DEBUG "False"
-ENV DOMAIN ".avashist.com"
+ENV DOMAIN "events-app-api.avashist.com"
 
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
 

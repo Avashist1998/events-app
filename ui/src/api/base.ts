@@ -1,7 +1,6 @@
 
 export const apiURL = import.meta.env.VITE_API_URL || "http://192.168.1.65:3000"
 
-
 export const clearAllCookies = () => {
     const cookies = document.cookie.split(";");
 
