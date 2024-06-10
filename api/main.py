@@ -81,5 +81,7 @@ if __name__ == "__main__":
             "main:app",
             host="0.0.0.0",
             port=app_config.PORT,
-            log_level="info"
+            log_level="info",
+            ssl_keyfile="key.pem",
+            ssl_certfile="cert.pem",
         )
